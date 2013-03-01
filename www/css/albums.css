@@ -1,0 +1,46 @@
+.album {
+    float: left;
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    margin: 0 20px 20px 0;
+    position: relative;
+}
+    .album:hover {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 16px rgba(255,255,255, 0.6);
+    }
+
+.album .thumb {
+    display: block;
+    background-color: #f0e68c;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    width: 212px;
+    height: 212px;
+    position: relative;
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+}
+
+.album a.thumb,
+.album a.thumb:hover {
+    border-bottom: 0;
+}
+
+.album .name {
+    /*display: none;*/
+    background-color: #5b5b5b;
+    color: #eee;
+    bottom: 0;
+    opacity: 0.85;
+    padding: 4px;
+    position: absolute;
+    width: 204px;
+    border-radius: 0 0 7px 7px;
+    -moz-border-radius: 0 0 7px 7px;
+    -webkit-border-radius: 0 0 7px 7px;
+}
+    .album .name span {
+        padding: 3px;
+    }

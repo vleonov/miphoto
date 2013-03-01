@@ -1,0 +1,47 @@
+body {
+    background-color: #404040;
+    padding-top: 30px;
+}
+.container-fluid {
+    padding-top: 15px;
+}
+/**
+ * Links
+ */
+a {
+    color: #99d;
+    text-decoration: none;
+    border-bottom: 1px solid #559;
+}
+    a:hover {
+        color: #f77;
+        text-decoration: none;
+        border-bottom: 1px solid #955;
+    }
+    a:visited {
+        /*color: #d9b;*/
+        /*border-bottom: 1px solid #766;*/
+    }
+    .navbar a,
+    .navbar a:hover {
+        border-bottom: 0;
+    }
+
+    .navbar .nav a,
+    .navbar .nav a:hover {
+        text-decoration: underline;
+    }
+
+.navbar .slash {
+    padding: 10px 0;
+    color: #999;
+}
+
+legend {
+    color: #777;
+    border-bottom: 1px solid #555;
+}
+.modal img {
+    max-height: 100%;
+    max-width: 100%;
+}
