@@ -19,9 +19,9 @@
 {if $photos->length}
     <legend>Фотографии</legend>
     <div class="photos">
-        {foreach $photos as $photo}
+        {foreach $photos as $i=>$photo}
             <div class="photo">
-                <a href="/photos/{$prefix}/{$photo->name}" target="_blank" data-preview="/prevws/{$prefix}/{$photo->name}">
+                <a name="gallery{$i}" href="/photos/{$prefix}/{$photo->name}" target="_blank" data-preview="/prevws/{$prefix}/{$photo->name}" data-i="{$i}">
                     <img src="/thumbs/{$prefix}/{$photo->name}"/>
                 </a>
             </div>
@@ -29,7 +29,22 @@
     </div>
 
     <div class="modal hide">
+        <div class="c-gallery-prev">
+            <div>
+                <i class="icon-arrow-left icon-white"></i>
+            </div>
+        </div>
         <a target="_blank"><img></a>
+        <div class="c-gallery-next">
+            <div>
+                <i class="icon-arrow-right icon-white"></i>
+            </div>
+        </div>
+        <div class="c-gallery-close">
+            <div>
+                <i class="icon-remove icon-white"></i>
+            </div>
+        </div>
     </div>
 {/if}
 

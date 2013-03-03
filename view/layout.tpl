@@ -12,6 +12,7 @@
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/albums.css" rel="stylesheet">
     <link href="/css/photos.css" rel="stylesheet">
+    <link href="/css/gallery.css" rel="stylesheet">
 
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>

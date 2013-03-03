@@ -1,7 +1,7 @@
 $(document).ready(
     function() {
         $(document).keydown(function(e) {
-            Control.keyDown(e);
+            return Control.keyDown(e);
         })
     }
 );
@@ -13,15 +13,19 @@ var Control = {
         console.log(event.keyCode);
         switch (event.keyCode) {
             case 27: // esc
-                Gallery.close();
-                break;
+                return Gallery.close();
             case 37: // left
-                Gallery.prev();
-                break;
-            case 39:
-                Gallery.next();
-                break;
-
+            case 38: // up
+                return Gallery.prev();
+            case 39: // right
+            case 40: // down
+                return Gallery.next();
+            case 33: // pgup
+                return Gallery.fprev();
+            case 34: // pgdown
+                return Gallery.fnext();
         }
+
+        return true;
     }
 }

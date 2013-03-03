@@ -8,14 +8,24 @@ var Gallery = {
     $modal: null,
     $img: null,
     $a: null,
+    $cPrev: null,
+    $cNext: null,
+    $cClose: null,
+    cSize: 0,
     padding: 20,
     isOpened: false,
     $aCurrent: null,
-    $aNext: null,
-    $aPrev: null,
+    pnCnt: 5,
+    $aNext: [],
+    $aPrev: [],
+    timer: null,
+    delay: 300,
 
     init: function()
     {
+        var matches,
+            $a;
+
         $('.photos a').click(
             function() {
                 return Gallery.show(this);
@@ -25,6 +35,39 @@ var Gallery = {
         this.$modal = $('.modal');
         this.$img = $('img', this.$modal);
         this.$a = $('a', this.$modal);
+
+        this.$cPrev = $('.c-gallery-prev');
+        this.$cNext = $('.c-gallery-next');
+        this.$cClose = $('.c-gallery-close');
+
+        this.$cPrev.click(function() {
+            Gallery._delay(function(){Gallery.prev()});
+        });
+        this.$cPrev.dblclick(function() {
+            Gallery._cancelDelay();
+            Gallery.fprev()
+        });
+
+        this.$cNext.click(function() {
+            Gallery._delay(function(){Gallery.next()});
+        });
+        this.$cNext.dblclick(function() {
+            Gallery._cancelDelay();
+            Gallery.fnext()
+        });
+
+        this.$cClose.click(function() {
+            Gallery.close();
+        });
+
+        this.cSize = $('div', this.$cPrev).outerHeight();
+
+        if (matches = location.hash.match(/^#gallery(\d+)/)) {
+            $a = $('.photos a[data-i|=' + matches[1] + ']');
+            if ($a.length) {
+                this.show($a);
+            }
+        }
     },
 
     show: function(a)
@@ -44,17 +87,21 @@ var Gallery = {
         img = new Image();
         img.src = preview;
         img.onload = function() {
-          Gallery.resize(this.width, this.height);
+          Gallery._resize(this.width, this.height);
         }
 
         this.$aCurrent = $a;
-        this.$aNext = $('a', this.$aCurrent.parent().next());
-        this.$aPrev = $('a', this.$aCurrent.parent().prev());
+
+        this.$aNext = [];
+        this.$aPrev = [];
+
+        this._definePN();
+        this._href();
 
         return false;
     },
 
-    resize: function(iWidth, iHeight)
+    _resize: function(iWidth, iHeight)
     {
         var wWidth = $(window).innerWidth(),
             wHeight = $(window).innerHeight(),
@@ -63,7 +110,13 @@ var Gallery = {
             width,
             height,
             wDiff,
-            hDiff;
+            hDiff,
+            top,
+            left,
+            cSize,
+            cMarginV,
+            cMarginHP,
+            cMarginHN;
 
         if (ipWidth > wWidth || ipHeigh > wHeight) {
             wDiff = ipWidth - wWidth;
@@ -81,11 +134,41 @@ var Gallery = {
             height = iHeight;
         }
 
-        this.$modal.css('width', width+'px');
-        this.$modal.css('height', height+'px');
-        this.$modal.css('margin', this.padding+'px');
-        this.$modal.css('top', (wHeight-height)/2 - this.padding + 'px');
-        this.$modal.css('left', (wWidth-width)/2 - this.padding + 'px');
+        top = (wHeight-height)/2 - this.padding;
+        left = (wWidth-width)/2 - this.padding;
+
+        this.$modal.css(
+            {
+                'width': width+'px',
+                'height': height+'px',
+                'margin': this.padding+'px',
+                'top': top+'px',
+                'left': left+'px'
+            }
+        );
+
+        cMarginV = (this.padding+height/2-this.cSize/2) + 'px ';
+        cMarginHP = Math.max(0, (left/2-this.cSize/2)) + 'px ';
+        cMarginHN = (left/2-this.cSize/2) + 'px ';
+
+        this.$cPrev.css(
+            {
+                'top': top+'px',
+                'width': left+this.padding+'px',
+                'height': height+this.padding*2+'px'
+            }
+        );
+        $('div', this.$cPrev).css('margin', cMarginV + '0 ' + cMarginV + cMarginHP);
+
+        this.$cNext.css(
+            {
+                'top': top+'px',
+                'width': left+this.padding+'px',
+                'height': height+this.padding*2+'px'
+            }
+        );
+        $('div', this.$cNext).css('margin', cMarginV + '0 ' + cMarginV + cMarginHN);
+
     },
 
     close: function()
@@ -93,20 +176,90 @@ var Gallery = {
         if (this.isOpened) {
             this.$modal.modal('hide');
             this.isOpened = false;
+            return false;
         }
+
+        return true;
     },
 
     next: function()
     {
         if (this.isOpened && this.$aNext.length) {
-            this.show(this.$aNext);
+            this.show(this.$aNext.shift());
+            return false;
         }
+
+        return true;
+    },
+
+    fnext: function()
+    {
+        if (this.isOpened && this.$aNext.length) {
+            this.show(this.$aNext.pop());
+            return false;
+        }
+
+        return true;
     },
 
     prev: function()
     {
         if (this.isOpened && this.$aPrev.length) {
-            this.show(this.$aPrev);
+            this.show(this.$aPrev.shift());
+            return false;
+        }
+
+        return true;
+    },
+
+    fprev: function()
+    {
+        if (this.isOpened && this.$aPrev.length) {
+            this.show(this.$aPrev.pop());
+            return false;
+        }
+
+        return true;
+    },
+
+    _definePN: function()
+    {
+        var $pNext = this.$aCurrent.parent(),
+            $pPrev = this.$aCurrent.parent(),
+            $next, $prev,
+            i;
+
+        for (i = 0; i<this.pnCnt; i++) {
+            $next = $('a', $pNext.next());
+            if ($next.length) {
+                this.$aNext.push($next);
+                $pNext = $next.parent();
+            }
+
+            $prev = $('a', $pPrev.prev());
+            if ($prev.length) {
+                this.$aPrev.push($prev);
+                $pPrev = $prev.parent();
+            }
+        }
+    },
+
+    _href: function()
+    {
+        location = '#gallery' + this.$aCurrent.attr('data-i');
+    },
+
+    _delay: function(callback)
+    {
+        this._cancelDelay();
+        this.timer = setTimeout(callback, this.delay);
+    },
+
+    _cancelDelay: function()
+    {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
         }
     }
 }
