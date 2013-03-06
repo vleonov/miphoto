@@ -20,9 +20,9 @@
     <legend>Фотографии</legend>
     <div class="photos">
         {foreach $photos as $i=>$photo}
-            <div class="photo">
+            <div class="{if $i>20}a-lazyload{/if} photo">
                 <a name="gallery{$i}" href="/photos/{$prefix}/{$photo->name}" target="_blank" data-preview="/prevws/{$prefix}/{$photo->name}" data-i="{$i}">
-                    <img src="/thumbs/{$prefix}/{$photo->name}"/>
+                    <img {if $i>20}data-src="/thumbs/{$prefix}/{$photo->name}"{else}src="/thumbs/{$prefix}/{$photo->name}"{/if}/>
                 </a>
             </div>
         {/foreach}
@@ -34,7 +34,7 @@
                 <i class="icon-arrow-left icon-white"></i>
             </div>
         </div>
-        <a target="_blank"><img></a>
+        <a target="_blank"><img src=""></a>
         <div class="c-gallery-next">
             <div>
                 <i class="icon-arrow-right icon-white"></i>

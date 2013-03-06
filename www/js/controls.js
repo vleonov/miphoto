@@ -10,7 +10,11 @@ var Control = {
 
     keyDown: function(event)
     {
-        console.log(event.keyCode);
+//        console.log(event.keyCode);
+        if (event.altKey || event.ctrlKey || event.shiftKey) {
+            return true;
+        }
+
         switch (event.keyCode) {
             case 27: // esc
                 return Gallery.close();

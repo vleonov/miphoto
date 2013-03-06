@@ -41,6 +41,9 @@ legend {
     color: #777;
     border-bottom: 1px solid #555;
 }
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0.9;
+}
 .modal img {
     max-height: 100%;
     max-width: 100%;

@@ -20,6 +20,7 @@ var Gallery = {
     $aPrev: [],
     timer: null,
     delay: 300,
+    historyHack: false,
 
     init: function()
     {
@@ -62,12 +63,10 @@ var Gallery = {
 
         this.cSize = $('div', this.$cPrev).outerHeight();
 
-        if (matches = location.hash.match(/^#gallery(\d+)/)) {
-            $a = $('.photos a[data-i|=' + matches[1] + ']');
-            if ($a.length) {
-                this.show($a);
-            }
-        }
+        window.addEventListener('popstate', function(e){
+            Gallery.historyListen();
+        }, false);
+        this.historyListen(true);
     },
 
     show: function(a)
@@ -92,11 +91,8 @@ var Gallery = {
 
         this.$aCurrent = $a;
 
-        this.$aNext = [];
-        this.$aPrev = [];
-
         this._definePN();
-        this._href();
+        this._historyAdd();
 
         return false;
     },
@@ -175,6 +171,8 @@ var Gallery = {
     {
         if (this.isOpened) {
             this.$modal.modal('hide');
+            this.$img.attr('src', '');
+            this.$a.attr('href', '');
             this.isOpened = false;
             return false;
         }
@@ -224,6 +222,9 @@ var Gallery = {
 
     _definePN: function()
     {
+        this.$aNext = [];
+        this.$aPrev = [];
+
         var $pNext = this.$aCurrent.parent(),
             $pPrev = this.$aCurrent.parent(),
             $next, $prev,
@@ -244,9 +245,31 @@ var Gallery = {
         }
     },
 
-    _href: function()
+    _historyAdd: function()
     {
+        this.historyHack = true;
         location = '#gallery' + this.$aCurrent.attr('data-i');
+    },
+
+    historyListen: function(isInit)
+    {
+        var isInit = isInit || false;
+
+        if (this.historyHack) {
+            return;
+        } else if (!(matches = location.hash.match(/^#gallery(\d+)/))) {
+            this.close();
+            return;
+        }
+
+        this.historyHack = false;
+        $a = $('.photos a[data-i|=' + matches[1] + ']');
+        if ($a.length) {
+            this.show($a);
+            if (isInit) {
+                Lazyload.loadTo($a);
+            }
+        }
     },
 
     _delay: function(callback)
