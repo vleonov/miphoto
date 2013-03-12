@@ -1,27 +1,31 @@
-.photo {
-    float: left;
+/* Photos list */
+.b-photo {
     border-radius: 7px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
+    float: left;
     margin: 0 20px 20px 0;
     position: relative;
 }
-    .photo:hover {
+    .b-photo:hover {
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 16px rgba(255,255,255, 0.6);
     }
 
-.photo .thumb {
+.b-photo .thumb {
     display: block;
-    border-radius: 7px;
-    -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
     background-color: #f0e68c;
     cursor: pointer;
     width: 200px;
     height: 200px;
 }
 
-.photo .name {
+.b-photo img {
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+}
+
+.b-photo .name {
     display: none;
     background-color: red;
     position: relative;
@@ -29,10 +33,23 @@
     height: 0;
     padding: 0 3px;
 }
-    .photo:hover .name {
+    .b-photo:hover .name {
         display: block;
     }
 
 .a-lazyload {
     display: none;
+}
+
+.c-photos {
+    position: fixed;
+    top: 35px;
+    left: 200px;
+    padding: 8px 0 5px 20px;
+    background-color: #404040;
+    border-radius: 3px;
+}
+.c-photo {
+    position: absolute;
+    top: 0;
 }

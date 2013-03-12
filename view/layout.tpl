@@ -11,6 +11,7 @@
     {*<link href="/css/bootstrap-responsive.css" rel="stylesheet">*}
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/albums.css" rel="stylesheet">
+    <link href="/css/controls.css" rel="stylesheet">
     <link href="/css/photos.css" rel="stylesheet">
     <link href="/css/gallery.css" rel="stylesheet">
 
@@ -19,6 +20,7 @@
     <script type="text/javascript" src="/js/lazyload.js"></script>
     <script type="text/javascript" src="/js/gallery.js"></script>
     <script type="text/javascript" src="/js/controls.js"></script>
+    <script type="text/javascript" src="/js/controls/photos.js"></script>
 
   </head>
 

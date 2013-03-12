@@ -1,4 +1,4 @@
-.album {
+.b-album {
     float: left;
     border-radius: 7px;
     -moz-border-radius: 7px;
@@ -6,11 +6,11 @@
     margin: 0 20px 20px 0;
     position: relative;
 }
-    .album:hover {
+    .b-album:hover {
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 16px rgba(255,255,255, 0.6);
     }
 
-.album .thumb {
+.b-album .e-thumb {
     display: block;
     background-color: #f0e68c;
     background-repeat: no-repeat;
@@ -23,12 +23,12 @@
     -webkit-border-radius: 7px;
 }
 
-.album a.thumb,
-.album a.thumb:hover {
+.b-album a.e-thumb,
+.b-album a.e-thumb:hover {
     border-bottom: 0;
 }
 
-.album .name {
+.b-album .e-name {
     /*display: none;*/
     background-color: #5b5b5b;
     color: #eee;
@@ -41,6 +41,6 @@
     -moz-border-radius: 0 0 7px 7px;
     -webkit-border-radius: 0 0 7px 7px;
 }
-    .album .name span {
+    .b-album .e-name span {
         padding: 3px;
     }

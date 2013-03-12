@@ -27,7 +27,7 @@ var Gallery = {
         var matches,
             $a;
 
-        $('.photos a').click(
+        $('a.c-gallery').click(
             function() {
                 return Gallery.show(this);
             }
@@ -102,7 +102,7 @@ var Gallery = {
         var wWidth = $(window).innerWidth(),
             wHeight = $(window).innerHeight(),
             ipWidth = iWidth+this.padding*2,
-            ipHeigh = iHeight+this.padding*2,
+            ipHeight = iHeight+this.padding*2,
             width,
             height,
             wDiff,
@@ -114,10 +114,9 @@ var Gallery = {
             cMarginHP,
             cMarginHN;
 
-        if (ipWidth > wWidth || ipHeigh > wHeight) {
-            wDiff = ipWidth - wWidth;
-            hDiff = ipHeigh - wHeight;
-
+        if (ipWidth > wWidth || ipHeight > wHeight) {
+            wDiff = ipWidth / wWidth;
+            hDiff = ipHeight / wHeight;
             if (wDiff > hDiff) {
                 width = wWidth - this.padding*2;
                 height = iHeight * (width / iWidth);
@@ -125,6 +124,7 @@ var Gallery = {
                 height = wHeight - this.padding*2;
                 width = iWidth * (height / iHeight);
             }
+            console.log(width+" "+height);
         } else {
             width = iWidth;
             height = iHeight;
@@ -263,7 +263,7 @@ var Gallery = {
         }
 
         this.historyHack = false;
-        $a = $('.photos a[data-i|=' + matches[1] + ']');
+        $a = $('a.c-gallery[data-i|=' + matches[1] + ']');
         if ($a.length) {
             this.show($a);
             if (isInit) {
