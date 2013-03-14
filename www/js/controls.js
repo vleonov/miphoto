@@ -61,7 +61,7 @@ var Control = {
     {
         var $c = $(c),
             $checkbox = $('.e-check', $c),
-            isChecked = $checkbox.val() ? true : false;
+            isChecked = $checkbox.val() > 0 ? true : false;
 
         if (!$checkbox.length) {
             return true;
@@ -71,7 +71,7 @@ var Control = {
             $checkbox.val('1');
             $c.addClass('m-checked');
         } else {
-            $checkbox.val('');
+            $checkbox.val('0');
             $c.removeClass('m-checked');
         }
 
@@ -106,7 +106,7 @@ var Control = {
             $checkboxes.val('1');
         } else {
             $checks.removeClass('m-checked');
-            $checkboxes.val('');
+            $checkboxes.val('0');
         }
 
         console.log($checks.length);

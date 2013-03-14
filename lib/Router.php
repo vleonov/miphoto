@@ -25,6 +25,7 @@ class Router {
             if (!preg_match('~^' . $reg . '$~', $this->_uri, $matches)) {
                 continue;
             }
+
             $item = each($data);
 
             if (is_int($item['key'])) {
@@ -37,6 +38,8 @@ class Router {
             $controller = 'Controller' . $controller;
             $oController = new $controller($matches);
             $result = array($oController, $method);
+
+            break;
         }
 
         return $result;

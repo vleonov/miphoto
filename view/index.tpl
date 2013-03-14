@@ -17,6 +17,8 @@
 {/if}
 
 {if $photos->length}
+    <form action="/photo/save" id="f-photos" method="post">
+
     <legend>Фотографии</legend>
     <div class="b-photos">
         {foreach $photos as $i=>$photo}
@@ -27,7 +29,7 @@
                 <div class="b-controls c-photo">
                     <div class="c-check">
                         <i class="icon-ok"></i>
-                        <input type="hidden" name="check[{$photo->id}]" class="e-check" value=""/>
+                        <input type="hidden" name="ids[{$photo->id}]" class="e-check" value="0" autocomplete="off"/>
                     </div>
                 </div>
             </div>
@@ -69,6 +71,8 @@
             </div>
         </div>
     </div>
+
+    </form>
 {/if}
 
 {/block}

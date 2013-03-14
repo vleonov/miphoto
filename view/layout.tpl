@@ -18,6 +18,7 @@
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/lazyload.js"></script>
+    <script type="text/javascript" src="/js/messages.js"></script>
     <script type="text/javascript" src="/js/gallery.js"></script>
     <script type="text/javascript" src="/js/controls.js"></script>
     <script type="text/javascript" src="/js/controls/photos.js"></script>
