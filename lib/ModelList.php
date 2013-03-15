@@ -51,7 +51,8 @@ abstract class ModelList implements Iterator{
         }
 
         while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
-            $model = new $this->_modelClass;
+            $modelClass = 'M_' . $this->_modelClass;
+            $model = new $modelClass;
             /** @var $model Model */
             $model->setFromArray($row);
             $this->_data[] = $model;

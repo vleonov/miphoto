@@ -1,17 +1,17 @@
 <?php
 
-class ControllerPhoto extends Controller
+class C_Photo extends Controller
 {
 
     public function save()
     {
         if (empty($_POST['ids']) || empty($_POST['action'])) {
-            return $this->error404();
+            return Response()->error404();
         }
 
         $ids = array_filter($_POST['ids']);
         if (empty($ids)) {
-            return $this->_ajaxResponse();
+            return AjaxResponse();
         }
 
         switch ($_POST['action']) {
@@ -20,13 +20,12 @@ class ControllerPhoto extends Controller
             case 'remove':
                 return $this->_doRemove();
             default:
-                return $this->error404();
+                return Response()->error404();
         }
     }
 
     protected function _doStar()
     {
-        $this->_assign('message', 'Starred')
-            ->_ajaxResponse();
+        return AjaxResponse()->assign('message', 'Starred');
     }
 }

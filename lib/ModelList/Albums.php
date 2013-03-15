@@ -1,6 +1,6 @@
 <?php
 
-class AlbumList extends ModelList
+class L_Albums extends ModelList
 {
     protected $_tblName = 'album';
     protected $_modelClass = 'Album';

@@ -1,6 +1,6 @@
 <?php
 
-class F
+class U_Misc
 {
 
     public static function is(&$v, $default = null)

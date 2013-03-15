@@ -1,6 +1,6 @@
 <?php
 
-class Image
+class U_Image
 {
     static protected $_sizes = array(
         'photo' => array(
@@ -21,7 +21,7 @@ class Image
         $meta = getimagesize($filename);
         $exif = array();
 
-        switch (F::is($meta[2])) {
+        switch (U_Misc::is($meta[2])) {
             case IMAGETYPE_JPEG:
             case IMAGETYPE_JPEG2000:
                 $gdSrc = imagecreatefromjpeg($filename);
@@ -37,7 +37,7 @@ class Image
         $w0 = $meta[0];
         $h0 = $meta[1];
 
-        $orientation = F::is($exif['Orientation'], 1);
+        $orientation = U_Misc::is($exif['Orientation'], 1);
         switch ($orientation) {
             case 3:
                 $gdSrc = imagerotate($gdSrc, 180, 0);
@@ -81,7 +81,7 @@ class Image
             $dirs = explode('/', str_replace(WWW_DIR . '/', '', $filename));
             array_shift($dirs);
             $th_filename = WWW_DIR . '/' . $dir . '/' . implode('/', $dirs);
-            F::mkdir(dirname($th_filename));
+            U_Misc::mkdir(dirname($th_filename));
 
             imagejpeg($gdDst, $th_filename, $sizes[2]);
             imagedestroy($gdDst);
@@ -99,7 +99,7 @@ class Image
         $imgPerW = 3;
         $imgPerH = 3;
 
-        $mAlbum = new Album($album_id);
+        $mAlbum = new M_Album($album_id);
         $lChildren = $mAlbum->getChildren();
 
         $childrenId = array();
@@ -107,7 +107,7 @@ class Image
             $childrenId[] = $mAlbum->id;
         }
 
-        $lPhotos = new PhotoList(
+        $lPhotos = new L_Photos(
             array('album_id' => $childrenId),
             array('rate DESC', 'RANDOM()'),
             $imgPerW * $imgPerH
@@ -124,7 +124,7 @@ class Image
             $x1 = $y1 = 0;
 
             foreach ($lPhotos as $mPhoto) {
-                $mAlbum = new Album($mPhoto->album_id);
+                $mAlbum = new M_Album($mPhoto->album_id);
                 $lAlbums = $mAlbum->getParents();
 
                 $dirs = array();
@@ -142,7 +142,7 @@ class Image
                 $meta = getimagesize($filename);
                 $exif = array();
 
-                switch (F::is($meta[2])) {
+                switch (U_Misc::is($meta[2])) {
                     case IMAGETYPE_JPEG:
                     case IMAGETYPE_JPEG2000:
                         $gdSrc = imagecreatefromjpeg($filename);
@@ -158,7 +158,7 @@ class Image
                 $w0 = $meta[0];
                 $h0 = $meta[1];
 
-                $orientation = F::is($exif['Orientation'], 1);
+                $orientation = U_Misc::is($exif['Orientation'], 1);
                 switch ($orientation) {
                     case 3:
                         $gdSrc = imagerotate($gdSrc, 180, 0);
@@ -208,7 +208,7 @@ class Image
             }
 
             $blk_filename = WWW_DIR . '/' . $dir . '/' . $album_id . '.jpg';
-            F::mkdir(dirname($blk_filename));
+            U_Misc::mkdir(dirname($blk_filename));
 
             imagejpeg($gdDst, $blk_filename, $sizes[2]);
 

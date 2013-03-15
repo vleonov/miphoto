@@ -15,7 +15,7 @@ function recursiveReadDir($dir, $parent_id = null) {
         } elseif (is_file($dirname . '/' . $file)) {
 
             $hash = md5_file($dirname . '/' . $file);
-            $mPhotos = new PhotoList(
+            $mPhotos = new L_Photos(
                 array(
                      'name' => $file,
                      'hash' => $hash,
@@ -24,7 +24,7 @@ function recursiveReadDir($dir, $parent_id = null) {
             );
 
             if (!$mPhotos->length) {
-                $mPhoto = new Photo();
+                $mPhoto = new M_Photo();
             } else {
                 foreach ($mPhotos as $mPhoto) {
                     break;
@@ -49,7 +49,7 @@ function recursiveReadDir($dir, $parent_id = null) {
             $mPhoto->height = $meta[1];
 
             try {
-                Image::makeThumbs($dirname . '/' . $file);
+                U_Image::makeThumbs($dirname . '/' . $file);
                 $mPhoto->save();
             } catch (Exception $e) {
                 echo 'ERROR: ' . $e->getMessage() ."\n";
@@ -59,7 +59,7 @@ function recursiveReadDir($dir, $parent_id = null) {
 
             echo $dir . '/' . $file ."\n";
 
-            $mAlbums = new AlbumList(
+            $mAlbums = new L_Albums(
                 array(
                      'name' => $file,
                      'parent_id' => $parent_id,
@@ -67,14 +67,14 @@ function recursiveReadDir($dir, $parent_id = null) {
             );
 
             if (!$mAlbums->length) {
-                $mAlbum = new Album();
+                $mAlbum = new M_Album();
             } else {
                 foreach ($mAlbums as $mAlbum) {
                     break;
                 }
             }
 
-            /** @var $mAlbum Album */
+            /** @var $mAlbum M_Album */
 
             $mAlbum->created_at = date(DATE_W3C, filemtime($dirname . '/' . $file));
             $mAlbum->name = $file;
@@ -85,7 +85,7 @@ function recursiveReadDir($dir, $parent_id = null) {
             recursiveReadDir($dir . '/' . $file, $album_id);
 
             try {
-                Image::makeBulks($album_id);
+                U_Image::makeBulks($album_id);
             } catch (Exception $e) {
                 echo 'ERROR: ' . $e->getMessage() . "\n";
             }

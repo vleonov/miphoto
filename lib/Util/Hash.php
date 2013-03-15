@@ -1,6 +1,6 @@
 <?php
 
-class Hash {
+class U_Hash {
 
     protected static $_thumbSize = 8;
 

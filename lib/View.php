@@ -1,8 +1,8 @@
 <?php
 
-require_once(ROOT_DIR . '/lib/Smarty/Smarty.class.php');
+require_once(ROOT_DIR . '/lib/External/Smarty/Smarty.class.php');
 
-class Template extends Smarty
+class View extends Smarty
 {
 
     public function __construct()

@@ -9,9 +9,8 @@ class Router {
     public function __construct($uri = null)
     {
         if (is_null($uri)) {
-            $uri = $_SERVER['REQUEST_URI'];
+            $uri = U_Url::path();
         }
-
         $uri = trim(trim($uri), '/');
         $this->_uri = $uri ? '/' . $uri . '/' : '/';
 
@@ -35,8 +34,11 @@ class Router {
                 $method = $item['value'];
                 $controller = $item['key'];
             }
-            $controller = 'Controller' . $controller;
-            $oController = new $controller($matches);
+
+            Request()->setArgs($matches);
+
+            $controller = 'C_' . $controller;
+            $oController = new $controller();
             $result = array($oController, $method);
 
             break;
