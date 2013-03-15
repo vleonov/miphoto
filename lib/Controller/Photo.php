@@ -5,16 +5,19 @@ class C_Photo extends Controller
 
     public function save()
     {
-        if (empty($_POST['ids']) || empty($_POST['action'])) {
+        $ids = Request()->ids;
+        $action = Request()->action;
+
+        if (!$ids || !$action) {
             return Response()->error404();
         }
 
-        $ids = array_filter($_POST['ids']);
+        $ids = array_filter($ids);
         if (empty($ids)) {
             return AjaxResponse();
         }
 
-        switch ($_POST['action']) {
+        switch ($action) {
             case 'star':
                 return $this->_doStar();
             case 'remove':

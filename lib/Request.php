@@ -38,9 +38,13 @@ class Request
         return $this;
     }
 
-    public function args($index, $default = null)
+    public function args($index = null, $default = null)
     {
-        return U_Misc::is($this->_args[$index], $default);
+        if (is_null($index)) {
+            return $this->_args;
+        } else {
+            return U_Misc::is($this->_args[$index], $default);
+        }
     }
 
     public function get($key, $default = null)

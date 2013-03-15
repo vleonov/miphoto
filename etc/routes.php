@@ -1,6 +1,6 @@
 <?php
 
-$this->_routes = array(
+return array(
 
     '/' => array(
         'Albums',

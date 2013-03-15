@@ -14,7 +14,7 @@ class Router {
         $uri = trim(trim($uri), '/');
         $this->_uri = $uri ? '/' . $uri . '/' : '/';
 
-        require_once(ROOT_DIR . '/etc/routes.php');
+        $this->_routes = include(ROOT_DIR . '/etc/routes.php');
     }
 
     public function proceed()
