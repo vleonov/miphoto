@@ -76,7 +76,7 @@ abstract class Model {
         return $this->_id;
     }
 
-    public function setFromArray(array $data)
+    public function fromArray(array $data)
     {
         if (isset($data['id'])) {
             $this->_id = $data['id'];
@@ -85,6 +85,11 @@ abstract class Model {
         $this->_data = $data;
 
         return $this;
+    }
+
+    public function toArray()
+    {
+        return $this->_data;
     }
 
     protected function _getById($id)
@@ -104,7 +109,7 @@ abstract class Model {
             return false;
         }
 
-        $this->setFromArray($res->fetch());
+        $this->fromArray($res->fetch());
         return true;
     }
 }

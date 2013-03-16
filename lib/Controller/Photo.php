@@ -12,23 +12,58 @@ class C_Photo extends Controller
             return Response()->error404();
         }
 
-        $ids = array_filter($ids);
+        $ids = array_keys(array_filter($ids));
         if (empty($ids)) {
             return AjaxResponse();
         }
 
         switch ($action) {
             case 'star':
-                return $this->_doStar();
+                return $this->_doStar($ids);
             case 'remove':
-                return $this->_doRemove();
+                return $this->_doRemove($ids);
             default:
                 return Response()->error404();
         }
     }
 
-    protected function _doStar()
+    protected function _doStar(array $ids)
     {
-        return AjaxResponse()->assign('message', 'Starred');
+        $lPhotos = new L_Photos(array('id' => $ids));
+
+        foreach ($lPhotos as $mPhoto) {
+            /** @var $mPhoto M_Photo */
+
+            $mPhoto->rate = 100;
+            $mPhoto->save();
+        }
+
+        $historyId = History::add(
+            History::MODEL_PHOTO,
+            $ids,
+            array('rate' => 0)
+        );
+
+        return AjaxResponse()->assign('historyId', $historyId);
+    }
+
+    protected function _doRemove(array $ids)
+    {
+        $lPhotos = new L_Photos(array('id' => $ids));
+
+        foreach ($lPhotos as $mPhoto) {
+            /** @var $mPhoto M_Photo */
+
+            $mPhoto->is_active = false;
+            $mPhoto->save();
+        }
+
+        $historyId = History::add(
+            History::MODEL_PHOTO,
+            $ids,
+            array('is_active' => true)
+        );
+
+        return AjaxResponse()->assign('historyId', $historyId);
     }
 }

@@ -41,11 +41,36 @@ var PhotoControls = {
                 dataType: 'json'
             }
         ).done(function(data) {
-            if (data.message !== undefined) {
-                Message.notify(data.message);
+            if (data.historyId !== undefined) {
+                msg = 'Фотографии отмечены как хорошие,' +
+                    ' <a href="/history/cancel/' + data.historyId + '">отменить</a>' +
+                    ' или <a href="">обновить страницу</a>.';
+                Message.notify(msg);
             }
         }).fail(function() {
             Message.alarm('Не удалось сохранить фотографии');
+        });
+    },
+
+    doRemove: function()
+    {
+        $.ajax(
+            this.$form.attr('action'),
+            {
+                cache: false,
+                data: this.$form.serialize() + '&action=remove',
+                type: this.$form.attr('method'),
+                dataType: 'json'
+            }
+        ).done(function(data) {
+            if (data.historyId !== undefined) {
+                msg = 'Фотографии удалены,' +
+                    ' <a href="/history/cancel/' + data.historyId + '">отменить</a>' +
+                    ' или <a href="">обновить страницу</a>.';
+                Message.notify(msg);
+            }
+        }).fail(function() {
+            Message.alarm('Не удалось удалить фотографии');
         });
     }
 

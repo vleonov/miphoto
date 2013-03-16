@@ -45,7 +45,6 @@ abstract class ModelList implements Iterator{
         );
         $res = $oDb->query($sql);
         $this->length = $res->rowCount();
-
         if (!$this->length) {
             return true;
         }
@@ -54,7 +53,7 @@ abstract class ModelList implements Iterator{
             $modelClass = 'M_' . $this->_modelClass;
             $model = new $modelClass;
             /** @var $model Model */
-            $model->setFromArray($row);
+            $model->fromArray($row);
             $this->_data[] = $model;
         }
     }

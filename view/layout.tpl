@@ -10,6 +10,7 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     {*<link href="/css/bootstrap-responsive.css" rel="stylesheet">*}
     <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/messages.css" rel="stylesheet">
     <link href="/css/albums.css" rel="stylesheet">
     <link href="/css/controls.css" rel="stylesheet">
     <link href="/css/photos.css" rel="stylesheet">
@@ -33,6 +34,13 @@
 
     {/block}
   </div>
+
+  <footer>
+      <div class="b-messages">
+          <div class="e-message"></div>
+      </div>
+  </footer>
+
   </body>
 
 </html>

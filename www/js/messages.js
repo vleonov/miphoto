@@ -2,11 +2,20 @@ var Message = {
 
     alarm: function(msg)
     {
-        console.log('ALARM: ' + msg);
+        this._setMessage(msg, 'm-alarm');
     },
 
     notify: function(msg)
     {
-        console.log('NOTIFY: ' + msg);
+        this._setMessage(msg, 'm-notify');
+    },
+
+    _setMessage: function(msg, modifier)
+    {
+        $('.b-messages .e-message')
+            .html(msg)
+            .removeClass('m-alarm')
+            .removeClass('m-notify')
+            .addClass(modifier);
     }
 }

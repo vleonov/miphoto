@@ -28,7 +28,10 @@ class C_Albums extends Controller
             array('name ASC')
         );
         $lPhotos = new L_Photos(
-            array('album_id' => Request()->args(2)),
+            array(
+                 'album_id' => Request()->args(2),
+                 'is_active' => true,
+            ),
             array('rate DESC', 'created_at ASC')
         );
 

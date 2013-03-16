@@ -1,0 +1,22 @@
+.b-messages .e-message {
+    position: fixed;
+    top: 0px;
+    right: 0;
+    min-width: 250px;
+    margin: 40px 40px 0 0;
+    text-align: center;
+    padding: 5px;
+}
+    .b-messages .e-message,
+    .b-messages .e-message a {
+        color: #000;
+    }
+
+    .b-messages .e-message.m-notify {
+        background-color: darkseagreen;
+        border: 1px solid mediumseagreen;
+    }
+    .b-messages .e-message.m-alarm {
+        background-color: #d58484;
+        border: 1px solid indianred;
+    }

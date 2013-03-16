@@ -43,6 +43,21 @@ class Database {
         return $this->_connection->query($sql);
     }
 
+    public function begin()
+    {
+        return $this->_connection->beginTransaction();
+    }
+
+    public function commit()
+    {
+        return $this->_connection->commit();
+    }
+
+    public function rollback()
+    {
+        return $this->_connection->rollBack();
+    }
+
     public function getLastError()
     {
         return $this->_connection->errorInfo();
@@ -54,7 +69,7 @@ class Database {
         if (is_null($v)) {
             $v = 'NULL';
         } elseif (is_array($v)) {
-            $v = $this->toArray($v);
+            $v = $this->arrayEncode($v);
         } else {
             switch (gettype($v)) {
                 case 'integer':
@@ -72,7 +87,12 @@ class Database {
         return $v;
     }
 
-    public function fromArray($value)
+    /**
+     * Преобразовать массив pg в массив php
+     * @param $value
+     * @return array
+     */
+    public function arrayDecode($value)
     {
         // предполагаем, что $val содержит корректный массив из постгреса
         // предполагаем, что разделитель элементов - запятая
@@ -126,11 +146,10 @@ class Database {
 
     /**
      * Преобразовать массив php в массив pg
-     *
      * @param $arr
      * @return string
      */
-    public function toArray($arr)
+    public function arrayEncode($arr)
     {
         if (empty($arr)) {
             return "'{}'";

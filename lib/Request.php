@@ -71,4 +71,15 @@ class Request
     {
         return U_Misc::is($_REQUEST[$key]);
     }
+
+    public function backUrl()
+    {
+        if ($this->backUrl) {
+            return $this->backUrl;
+        } elseif (!empty($_SERVER['HTTP_REFERER'])) {
+            return $_SERVER['HTTP_REFERER'];
+        } else {
+            return PROJECT_HOST;
+        }
+    }
 }

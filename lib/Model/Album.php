@@ -4,17 +4,17 @@ class M_Album extends Model {
 
     protected $_tblName = 'album';
 
-    public function setFromArray(array $data)
+    public function fromArray(array $data)
     {
         if (isset($data['id'])) {
             $data['url'] = $data['name'] . '/' . dechex($data['id']);
         }
 
         if (!empty($data['path'])) {
-            $data['path'] = $this->_oDb->fromArray($data['path']);
+            $data['path'] = $this->_oDb->arrayDecode($data['path']);
         }
 
-        return parent::setFromArray($data);
+        return parent::fromArray($data);
     }
 
     public function getParents()
