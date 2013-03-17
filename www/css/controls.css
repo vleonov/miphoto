@@ -1,3 +1,6 @@
+.b-controls {
+    display: none;
+}
     .b-controls>div {
         float: left;
         border: 1px solid #656565;

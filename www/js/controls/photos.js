@@ -19,6 +19,9 @@ var PhotoControls = {
         $('.c-photos .c-star').click(function() {
             PhotoControls.doStar();
         });
+        $('.c-photos .c-unstar').click(function() {
+            PhotoControls.doUnstar();
+        });
         $('.c-photos .c-remove').click(function() {
             PhotoControls.doRemove();
         })
@@ -49,6 +52,28 @@ var PhotoControls = {
             }
         }).fail(function() {
             Message.alarm('Не удалось сохранить фотографии');
+        });
+    },
+
+    doUnstar: function()
+    {
+        $.ajax(
+            this.$form.attr('action'),
+            {
+                cache: false,
+                data: this.$form.serialize() + '&action=unstar',
+                type: this.$form.attr('method'),
+                dataType: 'json'
+            }
+        ).done(function(data) {
+            if (data.historyId !== undefined) {
+                msg = 'С фотографий сняты отметки хороших,' +
+                    ' <a href="/history/cancel/' + data.historyId + '">отменить</a>' +
+                    ' или <a href="">обновить страницу</a>.';
+                Message.notify(msg);
+            }
+        }).fail(function() {
+            Message.alarm('Не удалось снять отметку');
         });
     },
 

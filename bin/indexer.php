@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-include dirname(__FILE__) . '/../init.php';
+include dirname(__FILE__) . '/../lib/__init.php';
 define('DIRECTORY', ROOT_DIR . '/www/photos');
 
 recursiveReadDir('');

@@ -19,9 +19,22 @@
 {if $photos->length}
     <form action="/photo/save" id="f-photos" method="post">
 
-    <legend>Фотографии</legend>
     <div class="b-photos">
         {foreach $photos as $i=>$photo}
+            {if $photo@first}
+                <legend>
+                    {if $photo->rate > 50}
+                        {assign var=isBest value=true}
+                        Лучшие фотографии
+                    {else}
+                        Фотографии
+                    {/if}
+                </legend>
+            {elseif $isBest && $photo->rate<=50}
+                <div class="clearfix"></div>
+                <legend>Остальные фотографии</legend>
+                {assign var=isBest value=false}
+            {/if}
             <div class="{if $i>20}a-lazyload{/if} b-photo">
                 <a class="c-gallery" name="gallery{$i}" href="/photos/{$prefix}/{$photo->name}" target="_blank" data-preview="/prevws/{$prefix}/{$photo->name}" data-i="{$i}">
                     <img {if $i>20}data-src="/thumbs/{$prefix}/{$photo->name}"{else}src="/thumbs/{$prefix}/{$photo->name}"{/if}/>
@@ -47,6 +60,9 @@
         </ul>
         <div class="c-star" title="Хорошая фотография">
             <i class="icon-star icon-white"></i>
+        </div>
+        <div class="c-unstar" title="Снять отметку хорошей">
+            <i class="icon-star"></i>
         </div>
         <div class="c-remove" title="Удалить фотографию">
             <i class="icon-trash icon-white"></i>

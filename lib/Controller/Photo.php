@@ -20,6 +20,8 @@ class C_Photo extends Controller
         switch ($action) {
             case 'star':
                 return $this->_doStar($ids);
+            case 'unstar':
+                return $this->_doUnstar($ids);
             case 'remove':
                 return $this->_doRemove($ids);
             default:
@@ -42,6 +44,26 @@ class C_Photo extends Controller
             History::MODEL_PHOTO,
             $ids,
             array('rate' => 0)
+        );
+
+        return AjaxResponse()->assign('historyId', $historyId);
+    }
+
+    protected function _doUnstar(array $ids)
+    {
+        $lPhotos = new L_Photos(array('id' => $ids));
+
+        foreach ($lPhotos as $mPhoto) {
+            /** @var $mPhoto M_Photo */
+
+            $mPhoto->rate = 0;
+            $mPhoto->save();
+        }
+
+        $historyId = History::add(
+            History::MODEL_PHOTO,
+            $ids,
+            array('rate' => 100)
         );
 
         return AjaxResponse()->assign('historyId', $historyId);
