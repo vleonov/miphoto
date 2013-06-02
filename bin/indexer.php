@@ -57,6 +57,9 @@ function recursiveReadDir($dir, $parent_id = null) {
 
         } else {
 
+            $dirName = DIRECTORY . $dir . '/' . $file;
+            $hash = reset(preg_split('/\s/', `du -s '$dirName'`, 2));
+
             echo $dir . '/' . $file ."\n";
 
             $mAlbums = new L_Albums(
@@ -72,11 +75,15 @@ function recursiveReadDir($dir, $parent_id = null) {
                 foreach ($mAlbums as $mAlbum) {
                     break;
                 }
+                if ($mAlbum->hash == $hash) {
+                    continue;
+                }
             }
 
             /** @var $mAlbum M_Album */
 
             $mAlbum->created_at = date(DATE_W3C, filemtime($dirname . '/' . $file));
+            $mAlbum->hash = $hash;
             $mAlbum->name = $file;
             $mAlbum->parent_id = $parent_id;
 
