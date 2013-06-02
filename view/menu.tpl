@@ -21,5 +21,18 @@
             {/if}
             {/strip}
         </div>
+        <div class="pull-right">
+            {if $Auth}
+                <a class="btn btn-inverse" href="/logout">
+                    <i class="icon-off icon-white"></i>
+                    Logout
+                </a>
+            {else}
+                <a class="btn btn-inverse" href="/login">
+                    <i class="icon-user icon-white"></i>
+                    Login
+                </a>
+            {/if}
+        </div>
     </div>
 </div>

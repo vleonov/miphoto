@@ -21,8 +21,10 @@
     <script type="text/javascript" src="/js/lazyload.js"></script>
     <script type="text/javascript" src="/js/messages.js"></script>
     <script type="text/javascript" src="/js/gallery.js"></script>
+  {if $Auth}
     <script type="text/javascript" src="/js/controls.js"></script>
     <script type="text/javascript" src="/js/controls/photos.js"></script>
+  {/if}
 
   </head>
 

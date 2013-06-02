@@ -13,6 +13,7 @@ spl_autoload_register('autoload');
 
 require_once ROOT_DIR . '/lib/Request.php';
 require_once ROOT_DIR . '/lib/Response.php';
+require_once ROOT_DIR . '/lib/Session.php';
 
 function autoload($className)
 {
