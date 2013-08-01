@@ -107,9 +107,13 @@ class U_Image
             $childrenId[] = $mAlbum->id;
         }
 
+        if (empty($childrenId)) {
+            return;
+        }
+
         $lPhotos = new L_Photos(
             array('album_id' => $childrenId),
-            array('rate DESC', 'RANDOM()'),
+            array('rate DESC', 'RAND()'),
             $imgPerW * $imgPerH
         );
 
@@ -125,6 +129,7 @@ class U_Image
 
             foreach ($lPhotos as $mPhoto) {
                 $mAlbum = new M_Album($mPhoto->album_id);
+
                 $lAlbums = $mAlbum->getParents();
 
                 $dirs = array();
@@ -136,7 +141,8 @@ class U_Image
                 $filename = $filedir . $mPhoto->name;
 
                 if (!file_exists($filename)) {
-                    throw new Exception("File doesn't exists: " . $filename);
+                    continue;
+//                    throw new Exception("File doesn't exists: " . $filename);
                 }
 
                 $meta = getimagesize($filename);
@@ -152,7 +158,8 @@ class U_Image
                         $gdSrc = imagecreatefrompng($filename);
                         break;
                     default :
-                        throw new Exception("File is not image: " . $filename);
+                        continue;
+//                        throw new Exception("File is not image: " . $filename);
                 }
 
                 $w0 = $meta[0];

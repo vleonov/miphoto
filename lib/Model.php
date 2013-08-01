@@ -37,6 +37,15 @@ abstract class Model {
         }
     }
 
+    public function __isset($property)
+    {
+        if ($property == 'id') {
+            return true;
+        } else {
+            return isset($this->_data[$property]);
+        }
+    }
+
     public function save()
     {
         if ($this->_id) {
@@ -45,7 +54,7 @@ abstract class Model {
                 $values[] = $k . '=' . $this->_oDb->castValue($v);
             }
 
-            $sql = 'UPDATE %s SET %s WHERE id=%d RETURNING id';
+            $sql = 'UPDATE %s SET %s WHERE id=%d';
             $sql = sprintf(
                 $sql,
                 $this->_tblName,
@@ -59,7 +68,7 @@ abstract class Model {
                 $values[] = $this->_oDb->castValue($v);
             }
 
-            $sql = 'INSERT INTO %s (%s) VALUES (%s) RETURNING id';
+            $sql = 'INSERT INTO %s (%s) VALUES (%s)';
             $sql = sprintf(
                 $sql,
                 $this->_tblName,
@@ -68,10 +77,9 @@ abstract class Model {
             );
         }
 
-        $res = $this->_oDb->query($sql);
-        $result = $res->fetch(PDO::FETCH_ASSOC);
+        $this->_oDb->query($sql);
 
-        $this->_id = $result['id'];
+        $this->_id = $this->_id ? $this->_id : $this->_oDb->getLastId();
 
         return $this->_id;
     }
@@ -94,9 +102,6 @@ abstract class Model {
 
     protected function _getById($id)
     {
-        if (!is_int($id)) {
-            $id = hexdec($id);
-        }
         $sql = 'SELECT * FROM %s WHERE id=%d';
         $sql = sprintf(
             $sql,

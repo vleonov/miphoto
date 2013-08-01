@@ -34,7 +34,7 @@ class M_History extends Model {
     public function fromArray(array $data)
      {
          if (!empty($data['ids'])) {
-             $data['ids'] = $this->_oDb->arrayDecode($data['ids']);
+             $data['ids'] = $this->_oDb->listDecode($data['ids']);
          }
 
          return parent::fromArray($data);

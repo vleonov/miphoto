@@ -43,6 +43,7 @@ abstract class ModelList implements Iterator{
             implode(', ', $orders),
             $limit ?: 1e3
         );
+
         $res = $oDb->query($sql);
         $this->length = $res->rowCount();
         if (!$this->length) {

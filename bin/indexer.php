@@ -58,9 +58,9 @@ function recursiveReadDir($dir, $parent_id = null) {
         } else {
 
             $dirName = DIRECTORY . $dir . '/' . $file;
-            $hash = reset(preg_split('/\s/', `du -s '$dirName'`, 2));
+            echo $parent_id." ".$dirName."\n";
 
-            echo $dir . '/' . $file ."\n";
+            $hash = reset(preg_split('/\s/', `du -s '$dirName'`, 2));
 
             $mAlbums = new L_Albums(
                 array(

@@ -35,9 +35,9 @@
                 <legend>Остальные фотографии</legend>
                 {assign var=isBest value=false}
             {/if}
-            <div class="{if $i>40}a-lazyload{/if} b-photo">
+            <div class="{if $i>100}a-lazyload{/if} b-photo">
                 <a class="c-gallery" name="gallery{$i}" href="/photos/{$prefix}/{$photo->name}" target="_blank" data-preview="/prevws/{$prefix}/{$photo->name}" data-i="{$i}">
-                    <img {if $i>20}data-src="/thumbs/{$prefix}/{$photo->name}"{else}src="/thumbs/{$prefix}/{$photo->name}"{/if}/>
+                    <img {if $i>100}data-src="/thumbs/{$prefix}/{$photo->name}"{else}src="/thumbs/{$prefix}/{$photo->name}"{/if}/>
                 </a>
                 <div class="b-controls c-photo">
                     <div class="c-check">
