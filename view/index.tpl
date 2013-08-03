@@ -7,7 +7,7 @@
     <div class="b-albums">
         {foreach $albums as $album}
             <div class="b-album">
-                <a class="e-thumb" href="/{$album->url}" style="background-image: url('/bulks/{$album->id}.jpg')" alt="">
+                <a class="e-thumb" href="{$album->url}" style="background-image: url('{$photoPrefix}/bulks/{$album->id}.jpg')" alt="">
                     <div class="e-name"><span>{$album->name}</span></div>
                 </a>
             </div>
@@ -17,7 +17,7 @@
 {/if}
 
 {if $photos->length}
-    <form action="/photo/save" id="f-photos" method="post">
+    <form action="photo/save" id="f-photos" method="post">
 
     <div class="b-photos">
         {foreach $photos as $i=>$photo}
@@ -36,8 +36,8 @@
                 {assign var=isBest value=false}
             {/if}
             <div class="{if $i>100}a-lazyload{/if} b-photo">
-                <a class="c-gallery" name="gallery{$i}" href="/photos/{$prefix}/{$photo->name}" target="_blank" data-preview="/prevws/{$prefix}/{$photo->name}" data-i="{$i}">
-                    <img {if $i>100}data-src="/thumbs/{$prefix}/{$photo->name}"{else}src="/thumbs/{$prefix}/{$photo->name}"{/if}/>
+                <a class="c-gallery" name="gallery{$i}" href="{$photoPrefix}/photos/{$prefix}/{$photo->name}" target="_blank" data-preview="{$photoPrefix}/prevws/{$prefix}/{$photo->name}" data-i="{$i}">
+                    <img {if $i>100}data-src="{$photoPrefix}/thumbs/{$prefix}/{$photo->name}"{else}src="{$photoPrefix}/thumbs/{$prefix}/{$photo->name}"{/if}/>
                 </a>
                 <div class="b-controls c-photo">
                     <div class="c-check">
