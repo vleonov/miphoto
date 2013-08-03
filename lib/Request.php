@@ -26,7 +26,7 @@ class Request
             return self::$_instance;
         }
 
-        self::$_instance = new static();
+        self::$_instance = new self();
 
         return self::$_instance;
     }

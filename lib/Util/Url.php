@@ -19,7 +19,7 @@ class U_Url
 
     protected static function _part($url, $part)
     {
-        $url = $url ?: U_Misc::is($_SERVER['REQUEST_URI']);
+        $url = $url ? $url : U_Misc::is($_SERVER['REQUEST_URI']);
         return parse_url($url, $part);
     }
 }

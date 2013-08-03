@@ -39,7 +39,7 @@ class Response
             return self::$_instance;
         }
 
-        self::$_instance = new static();
+        self::$_instance = new self();
 
         return self::$_instance;
     }
@@ -88,8 +88,8 @@ class Response
 
     public function setCookie($key, $value, $expire = null, $path = null)
     {
-        $expire = time() + ($expire ?: 365 * 24 * 60 * 60);
-        $path = $path ?: '/';
+        $expire = time() + ($expire ? $expire : 365 * 24 * 60 * 60);
+        $path = $path ? $path : '/';
 
         setcookie($key, $value, $expire, $path, PROJECT_DOMAIN);
 
