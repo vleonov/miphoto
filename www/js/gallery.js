@@ -90,7 +90,7 @@ var Gallery = {
         }
 
         this.$aCurrent = $a;
-
+;
         this._definePN();
         this._historyAdd();
 
@@ -248,7 +248,8 @@ var Gallery = {
     _historyAdd: function()
     {
         this.historyHack = true;
-        location = '#gallery' + this.$aCurrent.attr('data-i');
+        console.log(location);
+        location = location.pathname + '#gallery' + this.$aCurrent.attr('data-i');
     },
 
     historyListen: function(isInit)
