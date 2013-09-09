@@ -18,7 +18,7 @@ class U_GAuth
 
     public static function login()
     {
-        $backUri = '/';//Request()->get('state') ? base64_decode(Request()->get('state')) : '/';
+        $backUri = U_Url::base();
         if (Request()->get('error')) {
             return $backUri;
         }
