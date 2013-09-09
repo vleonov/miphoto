@@ -85,7 +85,7 @@ class U_GAuth
         $gApi = new Google_Client();
 
         $gApi->setClientId(Config()->auth['gAuth']['clientId']);
-        $gApi->setRedirectUri(PROJECT_HOST . '/login/gauth');
+        $gApi->setRedirectUri('http:' . U_Url::base() . '/login/gauth');
         $gApi->setScopes(array('https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'));
         $gApi->setState(base64_encode(U_Url::base()));
 
